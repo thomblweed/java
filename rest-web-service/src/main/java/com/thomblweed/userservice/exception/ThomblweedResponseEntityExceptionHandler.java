@@ -1,6 +1,7 @@
 package com.thomblweed.userservice.exception;
 
 import java.util.Date;
+import com.thomblweed.userservice.user.BadRequestException;
 import com.thomblweed.userservice.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,15 @@ public class ThomblweedResponseEntityExceptionHandler extends ResponseEntityExce
                 userNotFoundException.getMessage(), request.getDescription(false));
 
         return new ResponseEntity(userNotFoundExceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public final ResponseEntity<Object> handleUserNotFoundException(
+            BadRequestException badRequestException, WebRequest request) {
+
+        ExceptionResponse userNotFoundExceptionResponse = new ExceptionResponse(new Date(),
+                badRequestException.getMessage(), request.getDescription(false));
+
+        return new ResponseEntity(userNotFoundExceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }
