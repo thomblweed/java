@@ -2,6 +2,7 @@ package com.thomblweed.userservice.user;
 
 import java.net.URI;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,7 +45,7 @@ public class UserResource {
     }
 
     @PostMapping(path = "/newUser", produces = "application/json")
-    public ResponseEntity<Object> createUser(@RequestBody(required = false) User user) {
+    public ResponseEntity<Object> createUser(@Valid @RequestBody(required = false) User user) {
 
         if (user == null || user.getName() == null || user.getBirthDate() == null) {
             throw new BadRequestException(

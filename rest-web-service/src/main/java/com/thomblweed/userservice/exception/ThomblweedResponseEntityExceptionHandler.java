@@ -35,12 +35,14 @@ public class ThomblweedResponseEntityExceptionHandler extends ResponseEntityExce
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public final ResponseEntity<Object> handleUserNotFoundException(
+    public final ResponseEntity<Object> handleBadRequestException(
             BadRequestException badRequestException, WebRequest request) {
 
-        ExceptionResponse userNotFoundExceptionResponse = new ExceptionResponse(new Date(),
+        ExceptionResponse badRequestExceptionResponse = new ExceptionResponse(new Date(),
                 badRequestException.getMessage(), request.getDescription(false));
 
-        return new ResponseEntity(userNotFoundExceptionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(badRequestExceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
+    
 }
