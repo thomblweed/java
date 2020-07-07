@@ -3,8 +3,10 @@ package com.thomblweed.userservice.exception;
 import java.util.Date;
 import com.thomblweed.userservice.user.BadRequestException;
 import com.thomblweed.userservice.user.UserNotFoundException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,5 +46,14 @@ public class ThomblweedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity(badRequestExceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
-    
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status,
+            WebRequest request) {
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Validation Failed",
+                ex.getBindingResult().toString());
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 }
