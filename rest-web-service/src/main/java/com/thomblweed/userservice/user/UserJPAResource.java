@@ -74,4 +74,15 @@ public class UserJPAResource {
 
         return ResponseEntity.created(location).build();
     }
+
+    @GetMapping("/{id}/posts")
+    public List<Post> getPostForUser(@PathVariable int id) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if(!userOptional.isPresent()) {
+            throw new UserNotFoundException("id : " + id);
+        }
+
+        return userOptional.get().getPosts();
+    }
 }
