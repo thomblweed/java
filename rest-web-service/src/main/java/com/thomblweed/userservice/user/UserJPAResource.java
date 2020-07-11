@@ -1,6 +1,7 @@
 package com.thomblweed.userservice.user;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -27,6 +28,9 @@ public class UserJPAResource {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
     @GetMapping(path = "/getAll")
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -41,8 +45,7 @@ public class UserJPAResource {
 
         EntityModel<User> resource = EntityModel.of(user.get());
 
-        WebMvcLinkBuilder linkTo =
-                linkTo(methodOn(this.getClass()).getAllUsers());
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getAllUsers());
 
         resource.add(linkTo.withRel("all-users"));
 
@@ -64,13 +67,12 @@ public class UserJPAResource {
     public ResponseEntity<Object> createUser(@Valid @RequestBody(required = false) User user) {
 
         if (user == null || user.getName() == null || user.getBirthDate() == null) {
-            throw new BadRequestException(
-                    "Request body for new User is null or missing required parameters");
+            throw new BadRequestException("Request body for new User is null or missing required parameters");
         }
 
         User newUser = userRepository.save(user);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(newUser.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newUser.getId())
+                .toUri();
 
         return ResponseEntity.created(location).build();
     }
@@ -79,10 +81,30 @@ public class UserJPAResource {
     public List<Post> getPostForUser(@PathVariable int id) {
         Optional<User> userOptional = userRepository.findById(id);
 
-        if(!userOptional.isPresent()) {
+        if (!userOptional.isPresent()) {
             throw new UserNotFoundException("id : " + id);
         }
 
         return userOptional.get().getPosts();
+    }
+
+    @PostMapping(path = "/{id}/posts", produces = "application/json")
+    public ResponseEntity<Object> createPost(@Valid @RequestBody(required = false) Post post, @PathVariable int id) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (!userOptional.isPresent()) {
+            throw new UserNotFoundException("id : " + id);
+        }
+
+        User user = userOptional.get();
+
+        post.setUser(user);
+
+        postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 }
