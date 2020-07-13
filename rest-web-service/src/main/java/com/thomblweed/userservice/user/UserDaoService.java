@@ -24,7 +24,7 @@ public class UserDaoService {
         Integer userId = user.getId();
 
         for (User existingUser : users) {
-            if (existingUser.getId() == userId) {
+            if (existingUser.getId().equals(userId)) {
                 return existingUser;
             }
         }

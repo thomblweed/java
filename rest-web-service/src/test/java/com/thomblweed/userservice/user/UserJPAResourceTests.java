@@ -1,42 +1,46 @@
 package com.thomblweed.userservice.user;
 
-import java.util.Collections;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+@ExtendWith(MockitoExtension.class)
+@RunWith(JUnitPlatform.class)
 class UserJPAResourceTests {
 
-    @Autowired
-    MockMvc mockMvc;
+    @InjectMocks
+    UserJPAResource userJPAResource;
 
-    @MockBean
+    @Mock
     UserRepository mockUserRepository;
 
-    @MockBean
-    PostRepository mockPostRepository;
-
     @Test
-    public void getUserById() throws Exception {
+    public void testGetAllUsers() {
+        Mockito.when(mockUserRepository.findAll()).thenReturn(mockUsers());
 
-        Mockito.when(mockUserRepository.findAll()).thenReturn(Collections.emptyList());
-        
-        MvcResult mvcResult = mockMvc.perform(
-                MockMvcRequestBuilders.get("/users/jpa/getAll").accept(MediaType.APPLICATION_JSON))
-                .andReturn();
+        List<User> userResult = userJPAResource.getAllUsers();
 
-        System.out.println(mvcResult);
+        assertThat(userResult.get(0).getName()).isEqualTo("Thomas");
+        assertThat(userResult.get(1).getName()).isEqualTo("Jeff");
+    }
 
-        Mockito.verify(mockUserRepository).findAll();
+    private List<User> mockUsers() {
+        User user1 = new User(1, "Thomas", new Date());
+        User user2 = new User(1, "Jeff", new Date());
+        List<User> userList = new ArrayList<>();
+        userList.add(user1);
+        userList.add(user2);
+
+        return userList;
     }
 }
