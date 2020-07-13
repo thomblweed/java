@@ -36,7 +36,7 @@ class UserJPAResourceTests {
 
     private List<User> mockUsers() {
         User user1 = new User(1, "Thomas", new Date());
-        User user2 = new User(1, "Jeff", new Date());
+        User user2 = new User(2, "Jeff", new Date());
         List<User> userList = new ArrayList<>();
         userList.add(user1);
         userList.add(user2);
