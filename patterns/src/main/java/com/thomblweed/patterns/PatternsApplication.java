@@ -1,5 +1,7 @@
 package com.thomblweed.patterns;
 
+import com.thomblweed.patterns.adapters.exercise.Square;
+import com.thomblweed.patterns.adapters.exercise.SquareToRectangleAdapter;
 import com.thomblweed.patterns.builders.exercise.CodeBuilder;
 import com.thomblweed.patterns.factories.exercise.Person;
 import com.thomblweed.patterns.factories.exercise.PersonFactory;
@@ -38,6 +40,12 @@ public class PatternsApplication {
 		System.out.println("lineCopy : " + lineCopy);
 		lineCopy.end = new Point(5, 6);
 		System.out.println("lineCopy edited : " + lineCopy);
+		System.out.println("");
+
+		// adapter
+		Square square = new Square(5);
+		SquareToRectangleAdapter adapter = new SquareToRectangleAdapter(square);
+		System.out.println(adapter.getArea());
 		System.out.println("");
 	}
 }
