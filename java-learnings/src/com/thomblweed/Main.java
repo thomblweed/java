@@ -1,4 +1,4 @@
-package com.thomblweeed;
+package com.thomblweed;
 
 public class Main {
     public static void main(String[] args) {

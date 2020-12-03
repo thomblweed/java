@@ -1,6 +1,29 @@
-package com.thomblweeed;
+package com.thomblweed;
 
 public class Helpers {
+
+    public static boolean isOdd(int number) {
+        if (number < 0 || ((number % 2) == 0))
+            return false;
+
+        return true;
+    }
+
+    public static int sumOdd(int start, int end) {
+
+        if ((start < 1 || end < 1) || end < start) {
+            return -1;
+        }
+
+        int sumTotal = 0;
+
+        for (int i = start; i <= end; i++) {
+            if (isOdd(i))
+                sumTotal = sumTotal + i;
+        }
+
+        return sumTotal;
+    }
 
     public static int getDaysInMonth(int month, int year) {
         if (month < 1 || month > 12)

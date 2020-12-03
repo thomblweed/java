@@ -1,4 +1,4 @@
-package com.thomblweeed;
+package com.thomblweed;
 
 public class AnotherThread extends Thread {
     @Override
