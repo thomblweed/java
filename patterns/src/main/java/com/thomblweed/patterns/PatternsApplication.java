@@ -1,7 +1,11 @@
 package com.thomblweed.patterns;
 
-import com.thomblweed.patterns.adapters.exercise.Square;
 import com.thomblweed.patterns.adapters.exercise.SquareToRectangleAdapter;
+import com.thomblweed.patterns.bridge.exercise.RasterRenderer;
+import com.thomblweed.patterns.bridge.exercise.Shape;
+import com.thomblweed.patterns.bridge.exercise.Square;
+import com.thomblweed.patterns.bridge.exercise.Triangle;
+import com.thomblweed.patterns.bridge.exercise.VectorRenderer;
 import com.thomblweed.patterns.builders.exercise.CodeBuilder;
 import com.thomblweed.patterns.factories.exercise.Person;
 import com.thomblweed.patterns.factories.exercise.PersonFactory;
@@ -43,9 +47,21 @@ public class PatternsApplication {
 		System.out.println("");
 
 		// adapter
-		Square square = new Square(5);
+		com.thomblweed.patterns.adapters.exercise.Square square =
+				new com.thomblweed.patterns.adapters.exercise.Square(5);
 		SquareToRectangleAdapter adapter = new SquareToRectangleAdapter(square);
 		System.out.println(adapter.getArea());
+		System.out.println("");
+
+		// bridge
+		String rasterTriangle = new Triangle(new RasterRenderer()).toString();
+		System.out.println(rasterTriangle);
+		String vectorTriangle = new Triangle(new VectorRenderer()).toString();
+		System.out.println(vectorTriangle);
+		String rasterSquare = new Square(new RasterRenderer()).toString();
+		System.out.println(rasterSquare);
+		String vectorSqaure = new Square(new VectorRenderer()).toString();
+		System.out.println(vectorSqaure);
 		System.out.println("");
 	}
 }
