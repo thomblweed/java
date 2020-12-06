@@ -41,8 +41,6 @@ public class Loops {
         if (number < 0)
             return -1;
 
-        int response = 0;
-
         List<Integer> evenNumbers = new ArrayList<>();
 
         int temp = 0;
@@ -52,6 +50,8 @@ public class Loops {
                 evenNumbers.add(temp);
             number = number / 10;
         }
+
+        int response = 0;
 
         for (Integer evenNumber : evenNumbers) {
             response = response + evenNumber;
