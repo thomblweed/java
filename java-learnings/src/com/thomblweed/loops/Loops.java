@@ -41,22 +41,28 @@ public class Loops {
         if (number < 0)
             return -1;
 
-        List<Integer> evenNumbers = new ArrayList<>();
+        List<Integer> evenDigits = getEvenDigits(number);
+
+        int response = 0;
+
+        for (Integer evenNumber : evenDigits) {
+            response = response + evenNumber;
+        }
+
+        return response;
+    }
+
+    private static List<Integer> getEvenDigits(int number) {
+        List<Integer> evenDigits = new ArrayList<>();
 
         int temp = 0;
         while (number > 0) {
             temp = number % 10;
             if ((temp % 2) == 0)
-                evenNumbers.add(temp);
+                evenDigits.add(temp);
             number = number / 10;
         }
 
-        int response = 0;
-
-        for (Integer evenNumber : evenNumbers) {
-            response = response + evenNumber;
-        }
-
-        return response;
+        return evenDigits;
     }
 }
