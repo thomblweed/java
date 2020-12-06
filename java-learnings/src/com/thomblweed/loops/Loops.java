@@ -8,6 +8,8 @@ public class Loops {
     public static void main(String[] args) {
         boolean isPalindrome = isPalindrome(-123321);
         System.out.println(isPalindrome);
+
+        hasSharedDigit(12, 23);
     }
 
     public static boolean isPalindrome(int number) {
@@ -64,5 +66,24 @@ public class Loops {
         }
 
         return evenDigits;
+    }
+
+    public static boolean hasSharedDigit(int startInclusive, int endInclusive) {
+        if (startInclusive < 10 || startInclusive > 99)
+            return false;
+        if (endInclusive < 10 || endInclusive > 99)
+            return false;
+
+        int startFirstDigit = Integer.parseInt(String.valueOf(startInclusive).substring(0, 1));
+        int startLastDigit = startInclusive % 10;
+
+        int endFirstDigit = Integer.parseInt(String.valueOf(endInclusive).substring(0, 1));
+        int endLastDigit = endInclusive % 10;
+
+        if (startFirstDigit == endFirstDigit || startLastDigit == endLastDigit
+                || startFirstDigit == endLastDigit || startLastDigit == endFirstDigit)
+            return true;
+
+        return false;
     }
 }
