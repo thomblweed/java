@@ -1,5 +1,9 @@
 package com.thomblweed.patterns;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import com.thomblweed.patterns.adapters.exercise.SquareToRectangleAdapter;
 import com.thomblweed.patterns.bridge.exercise.RasterRenderer;
 import com.thomblweed.patterns.bridge.exercise.Shape;
@@ -7,6 +11,10 @@ import com.thomblweed.patterns.bridge.exercise.Square;
 import com.thomblweed.patterns.bridge.exercise.Triangle;
 import com.thomblweed.patterns.bridge.exercise.VectorRenderer;
 import com.thomblweed.patterns.builders.exercise.CodeBuilder;
+import com.thomblweed.patterns.composite.exercise.ManyValues;
+import com.thomblweed.patterns.composite.exercise.MyList;
+import com.thomblweed.patterns.composite.exercise.SingleValue;
+import com.thomblweed.patterns.composite.exercise.ValueContainer;
 import com.thomblweed.patterns.factories.exercise.Person;
 import com.thomblweed.patterns.factories.exercise.PersonFactory;
 import com.thomblweed.patterns.prototype.exercise.Line;
@@ -63,5 +71,16 @@ public class PatternsApplication {
 		String vectorSqaure = new Square(new VectorRenderer()).toString();
 		System.out.println(vectorSqaure);
 		System.out.println("");
+
+		// composite
+		Collection<ValueContainer> stuff = new ArrayList<>();
+		stuff.add(new SingleValue(5));
+		stuff.add(new SingleValue(5));
+		MyList myList = new MyList(stuff);
+		ManyValues manyValues = new ManyValues();
+		manyValues.add(25);
+		myList.add(manyValues);
+
+		System.out.println("sum :>> " + myList.sum());
 	}
 }
