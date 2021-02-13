@@ -15,6 +15,9 @@ import com.thomblweed.patterns.composite.exercise.ManyValues;
 import com.thomblweed.patterns.composite.exercise.MyList;
 import com.thomblweed.patterns.composite.exercise.SingleValue;
 import com.thomblweed.patterns.composite.exercise.ValueContainer;
+import com.thomblweed.patterns.facade.Buffer;
+import com.thomblweed.patterns.facade.Console;
+import com.thomblweed.patterns.facade.Viewport;
 import com.thomblweed.patterns.factories.exercise.Person;
 import com.thomblweed.patterns.factories.exercise.PersonFactory;
 import com.thomblweed.patterns.prototype.exercise.Line;
@@ -82,5 +85,17 @@ public class PatternsApplication {
 		myList.add(manyValues);
 
 		System.out.println("sum :>> " + myList.sum());
+
+		// Facade
+		// Bad Way
+		Buffer buffer = new Buffer(30, 30);
+		Viewport viewport = new Viewport(buffer, 30, 20, 0, 0);
+		Console console = new Console(30, 20);
+		console.addViewport(viewport);
+		console.render();
+
+		// Better Facade Pattern Way hides the api setup
+		Console consoleFacade = Console.newConsole(30, 20);
+		consoleFacade.render();
 	}
 }
