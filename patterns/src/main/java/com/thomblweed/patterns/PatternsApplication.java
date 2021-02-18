@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import com.thomblweed.patterns.Flyweight.exercise.Sentence;
 import com.thomblweed.patterns.adapters.exercise.SquareToRectangleAdapter;
 import com.thomblweed.patterns.bridge.exercise.RasterRenderer;
 import com.thomblweed.patterns.bridge.exercise.Shape;
@@ -97,5 +98,14 @@ public class PatternsApplication {
 		// Better Facade Pattern Way hides the api setup
 		Console consoleFacade = Console.newConsole(30, 20);
 		consoleFacade.render();
+
+		// Flyweight
+		Sentence sentence = new Sentence("Hello world");
+		sentence.getWord(1).capitalize = true;
+		System.out.println(sentence);
+
+		Sentence sentence2 = new Sentence("Hello ya big poo face");
+		sentence2.getWord(3).capitalize = true;
+		System.out.println(sentence2);
 	}
 }
