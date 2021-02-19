@@ -6,10 +6,11 @@ import java.util.List;
 public class Loops {
 
     public static void main(String[] args) {
-        boolean isPalindrome = isPalindrome(-123321);
-        System.out.println(isPalindrome);
+        // boolean isPalindrome = isPalindrome(-123321);
+        // System.out.println(isPalindrome);
 
-        hasSharedDigit(12, 23);
+        System.out.println(hasSameLastDigit(11, 22, 31));
+        // System.out.println(hasSameLastDigit(12, 13, 14));
     }
 
     public static boolean isPalindrome(int number) {
@@ -86,4 +87,39 @@ public class Loops {
 
         return false;
     }
+
+    private static int lastDigit(int number) {
+        return Math.abs(number) % 10;
+    }
+
+    public static boolean isValid(int number) {
+        if (number < 10 || number > 1000) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean hasSameLastDigit(int firstNumber, int secondNumber, int thirdNumber) {
+
+        boolean isValid = isValid(firstNumber) && isValid(secondNumber) && isValid(thirdNumber);
+
+        if (!isValid) {
+            return isValid;
+        }
+
+        List<Integer> lastDigits = new ArrayList<>() {
+            {
+                add(lastDigit(firstNumber));
+                add(lastDigit(secondNumber));
+                add(lastDigit(thirdNumber));
+            }
+        };
+
+        boolean duplicate = lastDigits.get(0).equals(lastDigits.get(1))
+                || lastDigits.get(1).equals(lastDigits.get(2))
+                || lastDigits.get(0).equals(lastDigits.get(2));
+
+        return duplicate;
+    }
+
 }
