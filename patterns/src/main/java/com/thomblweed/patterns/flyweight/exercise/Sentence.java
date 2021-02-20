@@ -1,4 +1,4 @@
-package com.thomblweed.patterns.Flyweight.exercise;
+package com.thomblweed.patterns.flyweight.exercise;
 
 import java.util.ArrayList;
 import java.util.List;

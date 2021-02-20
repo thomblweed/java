@@ -1,4 +1,4 @@
-package com.thomblweed.patterns.Flyweight;
+package com.thomblweed.patterns.flyweight;
 
 import java.util.ArrayList;
 import java.util.List;
