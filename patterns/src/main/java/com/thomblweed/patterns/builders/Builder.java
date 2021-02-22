@@ -1,3 +1,4 @@
+
 package com.thomblweed.patterns.builders;
 
 import java.util.ArrayList;
