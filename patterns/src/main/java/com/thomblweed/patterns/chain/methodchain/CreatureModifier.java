@@ -8,6 +8,22 @@ public class CreatureModifier {
         this.creature = creature;
     }
 
+    public Creature getCreature() {
+        return this.creature;
+    }
+
+    public void setCreature(Creature creature) {
+        this.creature = creature;
+    }
+
+    public CreatureModifier getNext() {
+        return this.next;
+    }
+
+    public void setNext(CreatureModifier next) {
+        this.next = next;
+    }
+
     public void add(CreatureModifier creatureModifier) {
         if (next != null) {
             next.add(creatureModifier);
@@ -18,6 +34,6 @@ public class CreatureModifier {
 
     public void handle() {
         if (next != null)
-            handle();
+            next.handle();
     }
 }
